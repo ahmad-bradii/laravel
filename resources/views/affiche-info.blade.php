@@ -1,83 +1,68 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informations reçues</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-        .info-box {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .info-item {
-            margin-bottom: 10px;
-        }
-        .info-label {
-            font-weight: bold;
-            display: inline-block;
-            width: 120px;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-        a:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <h1>Informations reçues</h1>
-    
-    <div class="info-box">
-        <div class="info-item">
-            <span class="info-label">Nom:</span>
-            <span>{{ $nom }}</span>
-        </div>
-        
-        <div class="info-item">
-            <span class="info-label">Prénom:</span>
-            <span>{{ $prenom }}</span>
-        </div>
-        
-        <div class="info-item">
-            <span class="info-label">Âge:</span>
-            <span>{{ $age }} ans</span>
-        </div>
-        
-        <div class="info-item">
-            <span class="info-label">Sexe:</span>
-            <span>{{ $sexe }}</span>
-        </div>
-        
-        <div class="info-item">
-            <span class="info-label">Loisirs:</span>
-            <span>
-                @if(!empty($loisirs))
-                    <!-- {{ implode(', ', array_map('ucfirst', $loisirs)) }} -->
-                    @foreach($loisirs as $loisir)
-                         <span style="color: blue; font-weight: bold;">{{$loisir}}, </span>
-                    @endforeach
-                @else
-                    Aucun loisir sélectionné
-                @endif
-            </span>
+@extends('layouts.app')
+
+@section('title', 'Informations reçues')
+
+@section('content')
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">
+                        <i class="bi bi-check-circle"></i> Informations reçues
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-success" role="alert">
+                        <i class="bi bi-check-lg"></i> Vos informations ont été enregistrées avec succès!
+                    </div>
+
+                    <div class="info-box bg-light p-4 rounded">
+                        <div class="row mb-3">
+                            <div class="col-4 fw-bold">Nom:</div>
+                            <div class="col-8">{{ $nom }}</div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-4 fw-bold">Prénom:</div>
+                            <div class="col-8">{{ $prenom }}</div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-4 fw-bold">Âge:</div>
+                            <div class="col-8">{{ $age }} ans</div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-4 fw-bold">Sexe:</div>
+                            <div class="col-8">{{ ucfirst($sexe) }}</div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-4 fw-bold">Loisirs:</div>
+                            <div class="col-8">
+                                @if(!empty($loisirs))
+                                    @foreach($loisirs as $loisir)
+                                        <span class="badge bg-primary me-1">{{ ucfirst($loisir) }}</span>
+                                    @endforeach
+                                @else
+                                    <span class="text-muted">Aucun loisir sélectionné</span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <a href="{{ route('form.create') }}" class="btn btn-primary">
+                            <i class="bi bi-arrow-left"></i> Retour au formulaire
+                        </a>
+                        <a href="{{ route('home') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-house"></i> Retour à l'accueil
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <a href="{{ route('form.create') }}">Retour au formulaire</a>
-</body>
-</html>
+</div>
+@endsection
